@@ -1,7 +1,6 @@
 package com.basics.core.springcorebasics;
 
 import com.basic.core.chapter1.autowiring.Store;
-import com.basic.core.chapter1.autowiring.service.ElectricStoreService;
 import com.basic.core.chapter1.autowiring.service.StoreService;
 import com.basic.core.chapter1.beanconfig.Company;
 import com.basic.core.chapter1.beanconfig.CompanyConfig;
