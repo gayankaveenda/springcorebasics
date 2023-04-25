@@ -12,29 +12,28 @@ public class SpringCoreBasicsApplication {
     public static void main(String[] args) {
         //  SpringApplication.run(SpringCoreBasicsApplication.class, args);
 
-
         //when you only have one config Java class
-        /*
-            AnnotationConfigApplicationContext context =
-                    new AnnotationConfigApplicationContext(
-                            CompanyConfig.class);
+        annotationConfigWithSingleConfiguration();
+
+        //when you have more than one config Java class
+        multipleAnnotationConfigFiles();
+
+    }
+
+    private static void multipleAnnotationConfigFiles() {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
+            context.register(CompanyConfig.class, Config.class);
+
+            context.refresh();
 
             Company company = context.getBean(Company.class);
-            System.out.println("In the main method: " + company);
-        */
+            System.out.println("In multipleAnnotationConfigFiles: " + company);
 
-        
-        //when you have more than one config Java class
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+            usingQualifiersAndPrimaryAnnotations(context);
+        }
+    }
 
-        context.register(CompanyConfig.class, Config.class);
-
-        context.refresh();
-
-        Company company = context.getBean(Company.class);
-        System.out.println("In the main method: " + company);
-
-
+    private static void usingQualifiersAndPrimaryAnnotations(AnnotationConfigApplicationContext context) {
         //Using Primary and Qualifiers
 
         //This is Primary
@@ -43,7 +42,17 @@ public class SpringCoreBasicsApplication {
 
         //using Qualifiers
         Store berwickStore = (Store) context.getBean("BerwickStore");
-        System.out.println("In the main method: " + berwickStore);
+        System.out.println("In usingQualifiersAndPrimaryAnnotations: " + berwickStore);
+    }
+
+    private static void annotationConfigWithSingleConfiguration() {
+        try (AnnotationConfigApplicationContext context =
+                     new AnnotationConfigApplicationContext(
+                             CompanyConfig.class)) {
+
+            Company company = context.getBean(Company.class);
+            System.out.println("In annotationConfigWithSingleConfiguration: " + company);
+        }
     }
 
 }
