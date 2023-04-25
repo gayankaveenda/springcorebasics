@@ -1,6 +1,8 @@
 package com.basics.core.springcorebasics;
 
 import com.basic.core.chapter1.autowiring.Store;
+import com.basic.core.chapter1.autowiring.service.ElectricStoreService;
+import com.basic.core.chapter1.autowiring.service.StoreService;
 import com.basic.core.chapter1.beanconfig.Company;
 import com.basic.core.chapter1.beanconfig.CompanyConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +15,7 @@ public class SpringCoreBasicsApplication {
         //  SpringApplication.run(SpringCoreBasicsApplication.class, args);
 
         //when you only have one config Java class
-        annotationConfigWithSingleConfiguration();
+        //annotationConfigWithSingleConfiguration();
 
         //when you have more than one config Java class
         multipleAnnotationConfigFiles();
@@ -30,7 +32,14 @@ public class SpringCoreBasicsApplication {
             System.out.println("In multipleAnnotationConfigFiles: " + company);
 
             usingQualifiersAndPrimaryAnnotations(context);
+
+            usingServiceAnnotationWithClassConfig(context);
         }
+    }
+
+    private static void usingServiceAnnotationWithClassConfig(AnnotationConfigApplicationContext context) {
+        StoreService storeService = (StoreService)  context.getBean("electricStoreService");
+        System.out.println("Store Service Address : " + storeService.getStoreAddress());
     }
 
     private static void usingQualifiersAndPrimaryAnnotations(AnnotationConfigApplicationContext context) {
